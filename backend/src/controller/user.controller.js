@@ -23,5 +23,25 @@ export async function getUser(req, res) {
 };
 
 export async function updateUser(req, res) {
-    res.status(200).json({ message: "Update user endpoint" });
+    const{ id } = req.params;
+    const { name, email, password } = req.body;
+    const user = users.find(u => u.id === parseInt(id));
+    if (!user) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (password) user.password = password;
+    
+    res.status(200).json({ message: "Updated user endpoint", user });
+};
+
+export async  function deleteUser(req, res) {
+    const { id } = req.params;
+    const userIndex = users.findIndex(u => u.id === parseInt(id));
+    if (userIndex === -1) {
+        return res.status(404).json({ message: "User not found" });
+    }
+    users.splice(userIndex, 1);
+    res.status(200).json({ message: "Deleted user endpoint" });
 };
