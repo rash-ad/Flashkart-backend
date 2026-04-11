@@ -1,5 +1,5 @@
 let users = []; 
-let userIdCounter = 1;
+let userId = 1;
 export async function registerUser(req, res) {
     const { name, email, password } = req.body;
 
@@ -11,7 +11,7 @@ export async function registerUser(req, res) {
     if (existingUser) {
         return res.status(400).json({ message: "User already exists" });
     }
-    const newUser = { id: userIdCounter++, name, email, password };
+    const newUser = { id: userId++, name, email, password };
     users.push(newUser);
 
     return res.status(201).json({ message: "User registered successfully", user: newUser });
