@@ -1,5 +1,5 @@
-let users = [];
-let userId = 1;
+export let users = [];
+export let userId = 1;
 export async function registerUser(req, res) {
   const { name, email, password } = req.body;
 
@@ -16,7 +16,7 @@ export async function registerUser(req, res) {
     id: userId++,
     name,
     email,
-    password
+    password   
   };
 
   users.push(newUser);
