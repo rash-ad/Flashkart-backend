@@ -36,6 +36,18 @@ const getRevenueChart = async (req, res, next) => {
     next(new ApiError(500, err.message));
   }
 };
+const getProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await dashboardService.getProductById(id);
+    if (!product) {
+      return next(new ApiError(404, 'Product not found'));
+    }
+    res.status(200).json(new ApiResponse(200, 'Product fetched', product));
+  } catch (err) {
+    next(new ApiError(500, err.message));
+  }
+};
 
 const getOrdersByStatus = async (req, res, next) => {
   try {
